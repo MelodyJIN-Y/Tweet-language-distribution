@@ -31,9 +31,6 @@
 ## About The Project
 This is a group project for COMP90024 Cluster and Cloud Computing (Semester 1, 2022), The University of Melbourne. 
 
-YouTube videos: https://www.youtube.com/playlist?list=PLhue6Y7TCUD3a12XNekhmNJNRnn6a2gsQ
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 ### Team members: 
 * [Xinyi Jin (Melody)](https://www.linkedin.com/in/melody-jin/)
@@ -171,20 +168,6 @@ The front end(Flask app) should run instantly on two of our instances. However, 
 ## License
 
 Distributed under the GNU License. See `LICENSE` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Project Link: [https://github.com/MelodyJIN-Y/Liveability-of-Melbourne](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne) 
-* Xinyi Jin (Melody): xinyij4@student.unimelb.edu.au
-* Yan Ying (Eliza): yying4@student.unimelb.edu.au
-* Xinhao Hao (Budd): xinhaoh1@student.unimelb.edu.au
-* Liqin Zhang: liqizhang@student.unimelb.edu.au
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
