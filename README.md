@@ -107,7 +107,7 @@ Clone the repo
    sbatch 2node8core.slurm
    ```
       
-### Files 
+## Files 
 
 #### [src folder](https://github.com/MelodyJIN-Y/Tweet-language-distribution/tree/main/src): slurm files to specify computing recources
    * main.py: the main multi-processing functions
