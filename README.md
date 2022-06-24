@@ -71,7 +71,7 @@ This is an example of how to list things you need to use the software and how to
 
 Clone the repo
    ```sh
-   git clone https://github.com/MelodyJIN-Y/Liveability-of-Melbourne.git
+   git clone https://github.com/MelodyJIN-Y/Tweet-language-distribution
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
