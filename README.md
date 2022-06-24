@@ -108,7 +108,7 @@ Clone the repo
    ```
       
 ### Files 
-Functionalities of back-end multiprocessing programs are to to collect tweets, transmit AURIN data, and do sentiment analysis concurrently. Thus, under the "back-end" folder, there are three separate folders consist of their corresponding programs. Within each folder, execution can starts by using "python" command on the main program. The following commands show how to run main functions. Since the overall design of the back-end system is complexed, some more details are described in another [README.md](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/blob/main/backend/README.md) file under the "backend" folder.
+
 #### [src folder](https://github.com/MelodyJIN-Y/Tweet-language-distribution/tree/main/src): slurm files to specify computing recources
    * main.py: the main multi-processing functions
       
