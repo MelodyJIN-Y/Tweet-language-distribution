@@ -1,0 +1,56 @@
+4
+Total Time Usage: 31.879437685012817s
+Total Memory Usage: 1688.0KB
+6
+Total Time Usage: 31.93547821044922s
+Total Memory Usage: 1672.0KB
+1
+Total Time Usage: 32.15685820579529s
+Total Memory Usage: 1660.0KB
+7
+Total Time Usage: 32.24083137512207s
+Total Memory Usage: 1616.0KB
+2
+Total Time Usage: 32.31418418884277s
+Total Memory Usage: 1628.0KB
+3
+Total Time Usage: 32.47325587272644s
+Total Memory Usage: 1624.0KB
+5
+Total Time Usage: 32.94479441642761s
+Total Memory Usage: 3612.0KB
+0
+Time to read data: 32.9390664100647  seconds
+Time to process data: 3.0360939502716064  seconds
+Total Time Usage: 35.97516989707947s
+Total Memory Usage: 5252.0KB
+Job ID           : 34565491
+Cluster          : spartan
+User/Project     : yying4/comp90024
+Nodes            : 1
+Wall-clock time  : 00:00:44 / 00:05:00
+
+Displaying overall resources usage from 2022-03-31 17:54:05 to 2022-03-31 17:54:49:
+
+NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
+
+spartan-bm100 : 
+                CPU# 1    : 44.3   (  37.1 /   7.2 /   0.0 /  55.7 ) 
+                CPU# 2    : 43.8   (  36.8 /   7.0 /   0.0 /  56.2 ) 
+                CPU# 3    : 43.7   (  36.7 /   7.0 /   0.1 /  56.2 ) 
+                CPU# 4    : 43.9   (  36.8 /   7.1 /   0.0 /  56.1 ) 
+                CPU# 5    : 57.8   (  49.5 /   8.3 /   0.0 /  42.1 ) 
+                CPU# 6    : 44.2   (  36.9 /   7.3 /   0.0 /  55.7 ) 
+                CPU# 7    : 43.4   (  36.6 /   6.7 /   0.0 /  56.6 ) 
+                CPU# 8    : 43.5   (  36.6 /   6.9 /   0.0 /  56.5 ) 
+
+
+Allocated CPUs            : 8    
+  CPUs with usage <25%    : 0    
+  CPUs with usage <50%    : 7    
+  CPUs with usage >50%    : 1    
+
+Memory used (RAM)         : 0.0%  [4MB of 32000MB]
+
+--------------------------------------------
+

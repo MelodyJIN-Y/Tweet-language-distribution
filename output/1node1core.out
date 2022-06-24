@@ -1,0 +1,28 @@
+0
+Time to read data: 279.0408616065979  seconds
+Time to process data: 3.0953927040100098  seconds
+Total Time Usage: 282.13627076148987s
+Total Memory Usage: 6140.0KB
+Job ID           : 34565293
+Cluster          : spartan
+User/Project     : yying4/comp90024
+Nodes            : 1
+Wall-clock time  : 00:04:49 / 00:10:00
+
+Displaying overall resources usage from 2022-03-31 17:44:28 to 2022-03-31 17:49:18:
+
+NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
+
+spartan-bm095 : 
+                CPU# 1    : 97.1   (  87.0 /  10.0 /   0.0 /   2.9 ) 
+
+
+Allocated CPUs            : 1    
+  CPUs with usage <25%    : 0    
+  CPUs with usage <50%    : 0    
+  CPUs with usage >50%    : 1    
+
+Memory used (RAM)         : 0.1%  [4MB of 4000MB]
+
+--------------------------------------------
+
