@@ -43,13 +43,9 @@ This is a group project for COMP90024 Cluster and Cloud Computing (Semester 1, 2
 ### Built With
 
 * [Spartan](https://dashboard.cloud.unimelb.edu.au)
-* [AURIN](https://portal.aurin.org.au)
-* [Ansible](https://www.ansible.com)
-* [Docker](https://www.docker.com)
-* [Twitter API](https://dev.twitter.com/)
-* [Flask](https://palletsprojects.com/p/flask/)
-* [CouchDB](https://couchdb.apache.org)
-* [nltk](https://www.nltk.org)
+* [mpi4py](https://www.ansible.com](https://mpi4py.readthedocs.io/en/stable/)
+* [Shapely](https://shapely.readthedocs.io/en/stable/manual.html)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
