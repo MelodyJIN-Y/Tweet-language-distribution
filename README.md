@@ -29,8 +29,14 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This is a group project for COMP90024 Cluster and Cloud Computing (Semester 1, 2022), The University of Melbourne. 
+This is a group project for COMP90024 Cluster and Cloud Computing (Semester 1, 2022), The University of Melbourne. The objective of this project is to read a big file (20Gb+ JSON file) containing information about tweets and calculate the number of tweets and languages used in each given cell of Sydney. The whole process is divided into two main steps. The first step is reading and extracting information about locations and languages parallelly. The second step is classifying locations into different cells and counting the number of languages used. The final output is in a CSV file with columns including cell name, number of total tweets, number of languages used and top ten languages and their corresponding number of tweets.
 
+
+   * ### Parallelized processing 
+   The primary method to read a big file without crashing the computer is loading some small parts of the file instead of loading all data into memory at one time. Thus, we utilize the “mmap (Memory-mapped file)” module in Python to read one record at a time. Firstly, the mmap constructor is used to open the big twitter file to create a memory-mapped file. A memory- mapped file is a mmap object, and the accountable unit in this file is the byte. The most critical point in this project is that the mmap object has indexes, so it is easy to separate parts for different MPI processes according to corresponding indexes of bytes. The “readline()” method of the mmap object can automatically read one record with an ending of “\n”. It is also an iterative step to read records one by one. As a result, the required memory space is minimal. The computer reads only one complete record into memory in each MPI process in dictionary format for further processing. Then the values of coordinates and language are extracted from their keys. These steps run simultaneously on different MPI processors. Finally, all extracted data are gathered to rank 0. Further cell allocation algorithms will do calculations about these gathered data on the root processor (rank 0).
+
+   * ### Cell allocation
+   We define a class to represent each cell in the grid. The cell class is aware of its coordinates and borders. There are different functions to test whether a given point lies on the valid border or within a cell. To cover different situations for cells on the grid border, we define cells whose left borders or bottom borders are valid. Since the case with points located on the cell vertices is complicated, we define valid vertex points for each cell separately. Each cell has its record of language distributions.
 
 ### Team members: 
 * [Xinyi Jin (Melody)](https://www.linkedin.com/in/melody-jin/)
@@ -43,7 +49,7 @@ This is a group project for COMP90024 Cluster and Cloud Computing (Semester 1, 2
 ### Built With
 
 * [Spartan](https://dashboard.cloud.unimelb.edu.au)
-* [mpi4py](https://www.ansible.com](https://mpi4py.readthedocs.io/en/stable/)
+* [mpi4py](https://mpi4py.readthedocs.io/en/stable/)
 * [Shapely](https://shapely.readthedocs.io/en/stable/manual.html)
 
 
@@ -57,15 +63,18 @@ This is a group project for COMP90024 Cluster and Cloud Computing (Semester 1, 2
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* Twitter developer account 
+* Spartan access
 
-    * list your twitter developer account tokens and named it as `token_and_query.json` . See the sample format in [`token_and_query.json`](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/blob/main/backend/twitter/live_data/essential/token_and_query.json)
+    * should have access to Spartan project
+    * make a symbolic link to Tweet and locaional files to user directory,
+    E.g. 
+    ```sh
+    ln –s /data/projects/COMP90024/bigTwitter.json 
+    ln –s /data/projects/COMP90024/smallTwitter.json 
+    ln –s /data/projects/COMP90024/tinyTwitter.json 
+    ln –s /data/projects/COMP90024/sydGrid.json
+    ```
 
-* MRC access 
-  
-    * download the related cloud file and rename it as `clouds.yaml`. Put the file to `host_vars`. This file will be used by OpenStack tools as a source of configuration on how to connect to a cloud. See the example in `clouds-example.yaml`
-  
-    * get the OpenStack RC file for the project. For example, we are group 18 and our file is called `unimelb-COMP90024-2022-grp-18-openrc.sh`
 
 ### Installation
 
@@ -81,81 +90,54 @@ Clone the repo
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### System deployment 
-We use Ansible and Docker to configure and deploy the system. The foder `Ansible` contains all the deployment files. The entire system can be deployed with one single playbook `entire_process.yaml` and the file `run-entire-process.sh`
-
-We also provide a step-by-step version to deploy the system for testing and illustration purpose. The `deployment-intermediate-step` folder contains breakdown steps to configure and deploy the system. We use dynamic inventory methods in the depoloyment thus no inventory files are provided. We need to run dynamic inventory in each intermediate deployment step to get the ip and group inforamtion.  
-* #### Option1: one-step deployment 
-
-  ```sh
-  ./run-entire-process.sh
-  ```
-* #### Option2: step-by-step deployment 
-  1. launch and configure instance: 
-  
-      realted playbook: `s1-create-instances.yaml`
-    
-      ```sh
-      ./example-s1-run.sh
-      ```
-  2. set up CouchDB and CouchDB cluster  
+#### Process bigTwitter.json file on Spartan: 
+* case 1: 1 node and 1 core 
+   ```sh
+   sbatch 1node1core.slurm
+   ```
+   
+* case 2: 1 node and 8 cores
+   ```sh
+   sbatch 1node8core.slurm
+   ```
       
-      realted playbook: `s2-setup-couchdb.yaml`
+* case 3: 2 nodes and 8 cores (with 4 cores per node)
     
-      ```sh
-      ./example-s2-run.sh
-      ```
-  3. deploy backend applications  
+   ```sh
+   sbatch 2node8core.slurm
+   ```
       
-      realted playbook: `s3-deploy-backend.yaml`
-    
-      ```sh
-      ./example-s3-run.sh
-      ```
-  4. deploy front-end applications  
-      
-      realted playbook: `s4-deploy-frontend.yaml`
-    
-      ```sh
-      ./example-s4-run.sh
-      ```
-### Back-end
+### Files 
 Functionalities of back-end multiprocessing programs are to to collect tweets, transmit AURIN data, and do sentiment analysis concurrently. Thus, under the "back-end" folder, there are three separate folders consist of their corresponding programs. Within each folder, execution can starts by using "python" command on the main program. The following commands show how to run main functions. Since the overall design of the back-end system is complexed, some more details are described in another [README.md](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/blob/main/backend/README.md) file under the "backend" folder.
-#### [Aurin folder](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/tree/main/backend/Aurin):
-store local AURIN data to CouchDB
-  ```sh
-  python write_AURIN_couchdb.py
-  ```
-#### [twitter folder](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/tree/main/backend/twitter):
-* [history data](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/tree/main/backend/twitter/history_data)
-do pre-processes on historical tweets and store them to CouchDB
-  ```sh
-  python historical_tweets.py
-  ```
-* [live_data](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/tree/main/backend/twitter/live_data)
-set up four Twitter harvesters to collect tweets through Twitter APIs
-1. essential
-  ```sh
-  python EssentialAPI_process_search+stream.py
-  ```
-2. elevated
-  ```sh
-  python ElevatedAPI_process_search+timeline.py
-  ```
-  
-#### [Sentiment folder](https://github.com/MelodyJIN-Y/Liveability-of-Melbourne/tree/main/backend/Sentiment)
-Based on tweet text databases, do sentiment analysis and get wordcloud on content of tweets.
-  ```sh
-  python sentimental_analysis.py
-  ```
+#### [src folder](https://github.com/MelodyJIN-Y/Tweet-language-distribution/tree/main/src): slurm files to specify computing recources
+   * main.py: the main multi-processing functions
+      
+   * Utility.py: A class for count language distribution based on defined rules 
+      
+   * plot_result.py: a helper function for performance comparisons of different computing resources 
 
-### Front-end 
 
-With **Cisco connected**, you can access the front end by visiting one of the following links:<br>
-* [http://172.26.129.113/](http://172.26.129.113/)<br>
-* [http://172.26.132.132/](http://172.26.132.132/)<br>
+#### [slurm folder](https://github.com/MelodyJIN-Y/Tweet-language-distribution/tree/main/slurm): slurm files to specify computing recources
+   * 1 node and 1 core: 1node1core.slurm
+      
+   * 1 node and 8 cores: 1node8core.slurm
+      
+   * 2 nodes and 8 cores (with 4 cores per node): 2node8core.slurm
+   
 
-The front end(Flask app) should run instantly on two of our instances. However, if it is down for any reason or for the purpose of local testing, using command line `python3 app.py` in directory `/frontend` should start the app.
+#### [output folder](https://github.com/MelodyJIN-Y/Tweet-language-distribution/tree/main/output): all the collected results
+
+   * Resources usage output: 
+   
+      * 1node1core.out
+      
+      * 1node8core.out
+      
+      * 2node8core.out
+   * Language ditribution of the bigTwitter.json file:
+   
+      * bigTwitter_result.csv
+      
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
